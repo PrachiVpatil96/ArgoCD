@@ -123,3 +123,65 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    kubectl port-forward svc/argocd-server -n argocd 8080:443
    ```
+# Step 4: Create the ArgoCD Application
+
+### Login to Argo CD
+
+1. **Retrieve the Admin Password**:  
+   Run the following command to retrieve the initial admin password:
+
+   ```bash
+   kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+   ```
+### Login via the CLI
+
+  **Use the Argo CD CLI to Log In**:  
+   Run the following command to log in to the Argo CD server. If you are not using port forwarding, replace `localhost:8080` with your actual server address.
+
+   ```bash
+   argocd login localhost:8080
+   ```
+
+## Add Your Git Repository to Argo CD
+
+1. **Add the Git Repository**:  
+   Replace `<GIT_REPO_URL>` with the URL of your repository and run the following command:
+
+   ```bash
+   argocd repo add <GIT_REPO_URL>
+   ```
+## Create an Argo CD Application
+
+1. **Run the Following Command**:  
+   Replace `<GIT_REPO_URL>` with your Git repository URL and execute the command to create an application in Argo CD:
+
+   ```bash
+   argocd app create guestbook \
+   --repo <GIT_REPO_URL> \
+   --path manifests \
+   --dest-server https://kubernetes.default.svc \
+   --dest-namespace default
+   ```
+# Step 5: Sync the Application via UI
+
+1. **Access the Argo CD Web UI**:  
+   Open the Argo CD UI in your browser at [https://localhost:8080](https://localhost:8080).
+
+2. **Login**:  
+   Log in using the `admin` credentials.
+
+3. **Click on the `guestbook` Application**:  
+   Find and click on the `guestbook` application in the list of applications.
+
+4. **Click the “Sync” Button**:  
+   In the application details page, click the **Sync** button to deploy the application.
+5.  Verify the Deployment
+
+     Check the Resources in the Kubernetes Cluster
+
+    Run the following command to check the resources in the `default` namespace:
+
+    ```bash
+    kubectl get all -n default
+    ```
+    
