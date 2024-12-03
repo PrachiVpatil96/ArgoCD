@@ -141,9 +141,11 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 1. **Retrieve the Admin Password**:  
    Run the following command to retrieve the initial admin password:
 
+
    ```bash
    kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
    ```
+   [Preview](argo/3.png)
 ### Login via the CLI
 
   **Use the Argo CD CLI to Log In**:  
@@ -152,6 +154,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    argocd login localhost:8080
    ```
+   [Preview](argo/4.png)
 
 ## Add Your Git Repository to Argo CD
 
@@ -167,28 +170,38 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    Replace `<GIT_REPO_URL>` with your Git repository URL and execute the command to create an application in Argo CD:
 
    ```bash
-   argocd app create guestbook \
+   argocd app create webapplication \
    --repo <GIT_REPO_URL> \
    --path manifests \
    --dest-server https://kubernetes.default.svc \
    --dest-namespace default
    ```
+   [Preview](argo/6.png)
+   [Preview](argo/7.png)
 # Step 5: Sync the Application via UI
 
 1. **Access the Argo CD Web UI**:  
    Open the Argo CD UI in your browser at [https://localhost:8080](https://localhost:8080).
+   [Preview](argo/3.png)
 
 2. **Login**:  
    Log in using the `admin` credentials.
 
-3. **Click on the `guestbook` Application**:  
-   Find and click on the `guestbook` application in the list of applications.
+
+
+3. **Click on the `webapplication` Application**:  
+   Find and click on the `webapplication` application in the list of applications.
+   [Preview](argo/7.png)
+
 
 4. **Click the “Sync” Button**:  
    In the application details page, click the **Sync** button to deploy the application.
+   [Previw](argo/8.png)
 5.  Verify the Deployment
 
      Check the Resources in the Kubernetes Cluster
+     or you can check it via lens.
+     [Preview](argo/9.png)
 
     Run the following command to check the resources in the `default` namespace:
 
