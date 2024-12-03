@@ -9,7 +9,7 @@ This guide explains how to set up **ArgoCD** on your Kubernetes cluster and mana
 - Kubernetes cluster up and running.
   [AKS](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli)
 - `kubectl` installed and configured to interact with your cluster.
-   [Preview](argo/1.png)
+   ![Preview](argo/1.png)
 
 - `manifest` files for your application
 - Admin access to the cluster.
@@ -114,7 +114,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    kubectl  get all -n argocd
 ```
 
-[Preview](argo/10.png)
+![Preview](argo/10.png)
 
 # Step 3: Expose ArgoCD Server
 
@@ -133,7 +133,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    kubectl port-forward svc/argocd-server -n argocd 8080:443
    ```
-   [Preview](argo/2.png)
+   ![Preview](argo/2.png)
 # Step 4: Create the ArgoCD Application
 
 ### Login to Argo CD
@@ -145,7 +145,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
    ```
-   [Preview](argo/3.png)
+   ![Preview](argo/3.png)
 ### Login via the CLI
 
   **Use the Argo CD CLI to Log In**:  
@@ -154,7 +154,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    argocd login localhost:8080
    ```
-   [Preview](argo/4.png)
+   ![Preview](argo/4.png)
 
 ## Add Your Git Repository to Argo CD
 
@@ -176,13 +176,12 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    --dest-server https://kubernetes.default.svc \
    --dest-namespace default
    ```
-   [Preview](argo/6.png)
-   [Preview](argo/7.png)
+   ![Preview](argo/6.png)
 # Step 5: Sync the Application via UI
 
 1. **Access the Argo CD Web UI**:  
    Open the Argo CD UI in your browser at [https://localhost:8080](https://localhost:8080).
-   [Preview](argo/3.png)
+   ![Preview](argo/3.png)
 
 2. **Login**:  
    Log in using the `admin` credentials.
@@ -191,21 +190,35 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 3. **Click on the `webapplication` Application**:  
    Find and click on the `webapplication` application in the list of applications.
-   [Preview](argo/7.png)
+   ![Preview](argo/7.png)
 
 
 4. **Click the “Sync” Button**:  
    In the application details page, click the **Sync** button to deploy the application.
-   [Previw](argo/8.png)
+   ![Previw](argo/8.png)
 5.  Verify the Deployment
 
      Check the Resources in the Kubernetes Cluster
      or you can check it via lens.
-     [Preview](argo/9.png)
+     ![Preview](argo/9.png)
+     - to check our aaplication is runnning or not
+     copy the `external-ip` of deployment service 
+     and paste in on website
+     like `http://<external-ip>:port`
+     ![Preview](argo/12.png)
+     ![Preview](argo/13.png)
+
 
     Run the following command to check the resources in the `default` namespace:
 
     ```bash
     kubectl get all -n default
     ```
-    
+# Step 6: To delete the application
+ ```bash
+ argocd app delete webapplication --cascade
+```
+
+###### Here above are the steps for deploying an application in aks cluster with the help of **ArgCD**.
+
+Happy Learning ! :happy:
