@@ -7,11 +7,15 @@ This guide explains how to set up **ArgoCD** on your Kubernetes cluster and mana
 ## Prerequisites
 
 - Kubernetes cluster up and running.
+  [AKS](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli)
 - `kubectl` installed and configured to interact with your cluster.
+   [Preview](argo/1.png)
+
 - `manifest` files for your application
 - Admin access to the cluster.
 
----
+- [lens](https://docs.k8slens.dev/getting-started/install-lens/) Install lens if required
+
 
 # Step 1: Set Up the Git Repository
 
@@ -105,6 +109,12 @@ Run the following command to install ArgoCD:
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
+- to see if installed successfully
+```bash
+   kubectl  get all -n argocd
+```
+
+[Preview](argo/10.png)
 
 # Step 3: Expose ArgoCD Server
 
@@ -123,6 +133,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    kubectl port-forward svc/argocd-server -n argocd 8080:443
    ```
+   [Preview](argo/2.png)
 # Step 4: Create the ArgoCD Application
 
 ### Login to Argo CD
