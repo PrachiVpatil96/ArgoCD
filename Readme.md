@@ -145,7 +145,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
    ```bash
    kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
    ```
-   ![Preview](argo/3.png)
+
 ### Login via the CLI
 
   **Use the Argo CD CLI to Log In**:  
@@ -221,4 +221,4 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ###### Here above are the steps for deploying an application in aks cluster with the help of **ArgCD**.
 
-Happy Learning ! :happy:
+Happy Learning! :blush:
